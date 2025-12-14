@@ -1,4 +1,4 @@
-## COMPILERS & TRANSLATORS Group 17
+## COMPILERS & TRANSLATORS GROUP 17
 
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/)
 
