@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-# CONSTANTS & CONFIGURATION 
+# CONSTANTS
 OPCODES = {
     'load', 'loadI', 'store', 'add', 'sub', 
     'mult', 'lshift', 'rshift', 'output', 'nop'
