@@ -14,36 +14,3 @@
 8. Osei Philip - 2425430016
 9. Price Ofori - 1727338141
 10. Prince Tetteh - 1725385412
-
-## Table of Contents
-
-- [Introduction](#intro)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-
-## Introduction
-
-## Installation
-
-## Usage
-
-## Contributing
-
-Contributions are welcome! Here's how you can get involved:
-
-1. Fork the repository
-2. Create a new branch:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Make your changes
-4. Commit your changes:
-   ```bash
-   git commit -m "Add feature"
-   ```
-5. Push to your branch:
-   ```bash
-   git push origin feature-name
-   ```
-6. Create a pull request
