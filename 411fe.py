@@ -7,28 +7,6 @@ OPCODES = {
     'mult', 'lshift', 'rshift', 'output', 'nop'
 }
 
-# PART C: INTERMEDIATE REPRESENTATION 
-class IRNode:
-    def __init__(self, line, opcode, op1=None, op2=None, op3=None):
-        self.line = line
-        self.opcode = opcode
-        self.op1 = op1
-        self.op2 = op2
-        self.op3 = op3
-
-    def __str__(self):
-        # Format strictly matches the example output in the assignment
-        out = f"Line {self.line}: {self.opcode}"
-        if self.opcode in ['add', 'sub', 'mult', 'lshift', 'rshift']:
-            out += f"\n  src1: {self.op1}\n  src2: {self.op2}\n  dest: {self.op3}"
-        elif self.opcode in ['load', 'store']:
-            out += f"\n  src: {self.op1}\n  dest: {self.op2}"
-        elif self.opcode == 'loadI':
-            out += f"\n  val: {self.op1}\n  dest: {self.op2}"
-        elif self.opcode == 'output':
-            out += f"\n  src: {self.op1}"
-        return out
-
 # PART A: SCANNER 
 class Scanner:
     def __init__(self, source):
@@ -173,6 +151,29 @@ class Parser:
                 
             except Exception:
                 self.pos += 1
+
+# PART C: INTERMEDIATE REPRESENTATION 
+class IRNode:
+    def __init__(self, line, opcode, op1=None, op2=None, op3=None):
+        self.line = line
+        self.opcode = opcode
+        self.op1 = op1
+        self.op2 = op2
+        self.op3 = op3
+
+    def __str__(self):
+        # Format strictly matches the example output in the assignment
+        out = f"Line {self.line}: {self.opcode}"
+        if self.opcode in ['add', 'sub', 'mult', 'lshift', 'rshift']:
+            out += f"\n  src1: {self.op1}\n  src2: {self.op2}\n  dest: {self.op3}"
+        elif self.opcode in ['load', 'store']:
+            out += f"\n  src: {self.op1}\n  dest: {self.op2}"
+        elif self.opcode == 'loadI':
+            out += f"\n  val: {self.op1}\n  dest: {self.op2}"
+        elif self.opcode == 'output':
+            out += f"\n  src: {self.op1}"
+        return out
+
 
 # --- PART D: COMMAND LINE INTERFACE ---
 def print_help():
