@@ -23,7 +23,6 @@ class Scanner:
             if char in ' \t\r': # Whitespace (ignored)
                 self.position += 1
             elif char == '\n':
-                # Track line numbers but don't necessarily emit a token unless needed
                 self.line += 1
                 self.position += 1
             elif char == '/' and self.match('/'): # Comments
@@ -31,15 +30,13 @@ class Scanner:
                 # Consume until end of line
                 while self.position < len(self.source) and self.source[self.position] != '\n':
                     lexeme += self.advance()
-                # Comments are usually discarded or stored as comment tokens. 
-                # The spec asks to output COMMENT tokens for -s flag. 
                 self.tokens.append((self.line, 'COMMENT', lexeme))
             elif char == '=' and self.match('>'): # Assign Arrow 
                 self.tokens.append((self.line, 'ASSIGN_ARROW', '=>'))
-            elif char == ',': # Comma [cite: 59]
+            elif char == ',': # Comma
                 self.tokens.append((self.line, 'COMMA', ','))
                 self.position += 1
-            elif char.isdigit(): # Constants [cite: 58]
+            elif char.isdigit(): # Constants
                 lexeme = self.advance()
                 while self.position < len(self.source) and self.source[self.position].isdigit():
                     lexeme += self.advance()
@@ -70,7 +67,6 @@ class Scanner:
         return char
     
     def match(self, expected):
-        # Checks if next char matches expected. If so, consumes it (advances 2 total).
         if self.position + 1 < len(self.source) and self.source[self.position + 1] == expected:
             self.position += 2
             return True
@@ -79,7 +75,6 @@ class Scanner:
 # PART B: PARSER 
 class Parser:
     def __init__(self, tokens):
-        # Filter out comments for parsing phase
         self.tokens = [t for t in tokens if t[1] != 'COMMENT']
         self.pos = 0
         self.ir = []
@@ -92,7 +87,7 @@ class Parser:
         curr = self.current()
         if curr and curr[1] == expected_type:
             self.pos += 1
-            return curr[2] # Return lexeme
+            return curr[2]
         else:
             line = curr[0] if curr else 'EOF'
             self.errors.append(f"Error on line {line}: {error_msg}")
@@ -102,7 +97,6 @@ class Parser:
         while self.pos < len(self.tokens):
             curr = self.current()
             
-            # Every instruction must start with an OPCODE
             if curr[1] != 'OPCODE':
                 self.errors.append(f"Error on line {curr[0]}: Expected Opcode, got {curr[1]}")
                 self.pos += 1
@@ -110,10 +104,9 @@ class Parser:
             
             opcode = curr[2]
             line = curr[0]
-            self.pos += 1 # Consume opcode
+            self.pos += 1 
 
             try:
-                # 1. 3-Operand ALU operations: add r1, r2 => r3
                 if opcode in ['add', 'sub', 'mult', 'lshift', 'rshift']:
                     r1 = self.consume('REGISTER', "Missing first operand")
                     self.consume('COMMA', "Missing comma between operands")
@@ -139,13 +132,13 @@ class Parser:
                     if val and r2:
                         self.ir.append(IRNode(line, opcode, val, r2))
 
-                # 4. Output: output r1 [cite: 33]
+                # 4. Output: output r1
                 elif opcode == 'output':
                     r1 = self.consume('REGISTER', "Missing operand after 'output'")
                     if r1:
                         self.ir.append(IRNode(line, opcode, r1))
 
-                # 5. Nop [cite: 33]
+                # 5. Nop 
                 elif opcode == 'nop':
                     self.ir.append(IRNode(line, opcode))
                 
@@ -162,7 +155,6 @@ class IRNode:
         self.op3 = op3
 
     def __str__(self):
-        # Format strictly matches the example output in the assignment
         out = f"Line {self.line}: {self.opcode}"
         if self.opcode in ['add', 'sub', 'mult', 'lshift', 'rshift']:
             out += f"\n  src1: {self.op1}\n  src2: {self.op2}\n  dest: {self.op3}"
@@ -175,9 +167,8 @@ class IRNode:
         return out
 
 
-# --- PART D: COMMAND LINE INTERFACE ---
+# PART D: COMMAND LINE INTERFACE
 def print_help():
-    # Help message requirement
     print("Usage: 411fe [flags] <filename>")
     print(" -h : Show this help message")
     print(" -s : Scan and print tokens")
@@ -192,13 +183,12 @@ def main():
         print_help()
         return
 
-    mode = '-p' # Default behavior
+    mode = '-p'
     if '-r' in args: mode = '-r'
     elif '-p' in args: mode = '-p'
     elif '-s' in args: mode = '-s'
 
-    # Extract filename (argument that isn't a flag)
-    filename = None
+    filename = '411fe'
     for arg in args:
         if arg[0] != '-':
             filename = arg
@@ -223,9 +213,9 @@ def main():
 
     # Handle -s Flag
     if mode == '-s':
-        for t in tokens:
+        for token in tokens:
             # Output format: <lineNumber> <tokenType> <lexeme>
-            print(f"{t[0]} {t[1]} {t[2]}")
+            print(f"{token[0]} {token[1]} {token[2]}")
         return
 
     # 2. Parse
@@ -234,8 +224,8 @@ def main():
 
     # Handle -p Flag
     if parser.errors:
-        for err in parser.errors:
-            print(err)
+        for error in parser.errors:
+            print(error)
     else:
         if mode == '-p':
             print("VALID ILOC PROGRAM")
