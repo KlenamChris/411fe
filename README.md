@@ -6,7 +6,7 @@
 
 1. Kwashie Klenam Christian - 1724421118
 2. Sabinar Arthur - 1725885883
-3. Nii Antieye Tetteh Aaron - 2425230128
+3. Nii Antieye Tetteh Aaron - 2425430128
 4. Samuel Adu-Boahen - 1722697089
 5. Edward Agyei Okyere - 2425430115
 6. Nti Kofi Twumasi - 1725303859
