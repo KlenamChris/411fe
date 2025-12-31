@@ -51,7 +51,6 @@ class Scanner:
                 else:
                     print(f"Error on line {self.line}: Invalid identifier '{lexeme}'")
             else:
-                # Handle unexpected characters
                 print(f"Error on line {self.line}: Unexpected character '{char}'")
                 self.position += 1
         return self.tokens
