@@ -143,7 +143,7 @@ class Parser:
             except Exception:
                 self.pos += 1
 
-# PART C: INTERMEDIATE REPRESENTATION 
+# PART C: INTERMEDIATE REPRESENTATION CONSTRUCTION
 class IRNode:
     def __init__(self, line, opcode, op1=None, op2=None, op3=None):
         self.line = line
