@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import sys
 
 # CONSTANTS
@@ -27,7 +26,6 @@ class Scanner:
                 self.position += 1
             elif char == '/' and self.match('/'): # Comments
                 lexeme = '//'
-                # Consume until end of line
                 while self.position < len(self.source) and self.source[self.position] != '\n':
                     lexeme += self.advance()
                 self.tokens.append((self.line, 'COMMENT', lexeme))
