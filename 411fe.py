@@ -19,19 +19,19 @@ class Scanner:
         while self.position < len(self.source):
             char = self.source[self.position]
 
-            if char in ' \t\r': # Whitespace (ignored)
+            if char in ' \t\r': # WHITESPACE (ignored)
                 self.position += 1
             elif char == '\n':
                 self.line += 1
                 self.position += 1
-            elif char == '/' and self.match('/'): # Comments
+            elif char == '/' and self.match('/'): # COMMENT
                 lexeme = '//'
                 while self.position < len(self.source) and self.source[self.position] != '\n':
                     lexeme += self.advance()
                 self.tokens.append((self.line, 'COMMENT', lexeme))
-            elif char == '=' and self.match('>'): # Assign Arrow 
+            elif char == '=' and self.match('>'): # ASSIGN_ARROW (=>) 
                 self.tokens.append((self.line, 'ASSIGN_ARROW', '=>'))
-            elif char == ',': # Comma
+            elif char == ',': # COMMA
                 self.tokens.append((self.line, 'COMMA', ','))
                 self.position += 1
             elif char.isdigit(): # Constants
@@ -49,7 +49,6 @@ class Scanner:
                 elif lexeme.startswith('r') and lexeme[1:].isdigit():
                     self.tokens.append((self.line, 'REGISTER', lexeme)) 
                 else:
-                    # Per instructions, report scan errors
                     print(f"Error on line {self.line}: Invalid identifier '{lexeme}'")
             else:
                 # Handle unexpected characters
