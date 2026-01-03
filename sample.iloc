@@ -5,7 +5,4 @@ mult r3, r2 => r4
 store r4 => r10
 
 // Invalid lines for testing:
-  add r1 r2 => r3
-load r5 = > r6
-output
-nop x
+

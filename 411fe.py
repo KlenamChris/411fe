@@ -71,7 +71,7 @@ class Scanner:
 # PART B: PARSER 
 class Parser:
     def __init__(self, tokens):
-        self.tokens = [t for t in tokens if t[1] != 'COMMENT']
+        self.tokens = [token for token in tokens if token[1] != 'COMMENT']
         self.pos = 0
         self.ir = []
         self.errors = []
@@ -80,26 +80,26 @@ class Parser:
         return self.tokens[self.pos] if self.pos < len(self.tokens) else None
 
     def consume(self, expected_type, error_msg):
-        curr = self.current()
-        if curr and curr[1] == expected_type:
+        current = self.current()
+        if current and current[1] == expected_type:
             self.pos += 1
-            return curr[2]
+            return current[2]
         else:
-            line = curr[0] if curr else 'EOF'
+            line = current[0] if current else 'EOF'
             self.errors.append(f"Error on line {line}: {error_msg}")
             return None
 
     def parse(self):
         while self.pos < len(self.tokens):
-            curr = self.current()
+            current = self.current()
             
-            if curr[1] != 'OPCODE':
-                self.errors.append(f"Error on line {curr[0]}: Expected Opcode, got {curr[1]}")
+            if current[1] != 'OPCODE':
+                self.errors.append(f"Error on line {current[0]}: Expected Opcode, got {current[1]}")
                 self.pos += 1
                 continue
             
-            opcode = curr[2]
-            line = curr[0]
+            opcode = current[2]
+            line = current[0]
             self.pos += 1 
 
             try:
@@ -153,11 +153,11 @@ class IRNode:
     def __str__(self):
         out = f"Line {self.line}: {self.opcode}"
         if self.opcode in ['add', 'sub', 'mult', 'lshift', 'rshift']:
-            out += f"\n  src1: {self.op1}\n  src2: {self.op2}\n  dest: {self.op3}"
+            out += f"\n  src1: {self.op1}\n  src2: {self.op2}\n  destination: {self.op3}"
         elif self.opcode in ['load', 'store']:
-            out += f"\n  src: {self.op1}\n  dest: {self.op2}"
+            out += f"\n  src: {self.op1}\n  destination: {self.op2}"
         elif self.opcode == 'loadI':
-            out += f"\n  val: {self.op1}\n  dest: {self.op2}"
+            out += f"\n  value: {self.op1}\n  destination: {self.op2}"
         elif self.opcode == 'output':
             out += f"\n  src: {self.op1}"
         return out
@@ -184,7 +184,7 @@ def main():
     elif '-p' in args: mode = '-p'
     elif '-s' in args: mode = '-s'
 
-    filename = '411fe'
+    filename = None
     for arg in args:
         if arg[0] != '-':
             filename = arg
