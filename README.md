@@ -15,7 +15,7 @@ Group 17
 For Linux Distributions, the progam is wrapped in a shell script named `411fe`. 
 To ensure it has execution permissions, run:
 ```shell
-chmod +x 411fe
+chmod a+x 411fe
 ```
 To run the program in `411fe.py` file:
 For Mac/Linux users:
