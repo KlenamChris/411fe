@@ -1,2 +1,2 @@
-#!/usr/bin
-python3 411fe.py "$@"
+#!/bin/bash
+python3 ./411fe.py $@
