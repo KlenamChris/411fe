@@ -191,7 +191,7 @@ def main():
             break
     
     if not filename:
-        # If no file provided, prompt usage
+        # If no file is provided
         print("Error: No input file specified.")
         print_help()
         return
