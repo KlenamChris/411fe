@@ -72,17 +72,17 @@ class Scanner:
 class Parser:
     def __init__(self, tokens):
         self.tokens = [token for token in tokens if token[1] != 'COMMENT']
-        self.pos = 0
+        self.position = 0
         self.ir = []
         self.errors = []
 
     def current(self):
-        return self.tokens[self.pos] if self.pos < len(self.tokens) else None
+        return self.tokens[self.position] if self.position < len(self.tokens) else None
 
     def consume(self, expected_type, error_msg):
         current = self.current()
         if current and current[1] == expected_type:
-            self.pos += 1
+            self.position += 1
             return current[2]
         else:
             line = current[0] if current else 'EOF'
@@ -90,17 +90,17 @@ class Parser:
             return None
 
     def parse(self):
-        while self.pos < len(self.tokens):
+        while self.position < len(self.tokens):
             current = self.current()
             
             if current[1] != 'OPCODE':
                 self.errors.append(f"Error on line {current[0]}: Expected Opcode, got {current[1]}")
-                self.pos += 1
+                self.position += 1
                 continue
             
             opcode = current[2]
             line = current[0]
-            self.pos += 1 
+            self.position += 1 
 
             try:
                 if opcode in ['add', 'sub', 'mult', 'lshift', 'rshift']:
@@ -139,7 +139,7 @@ class Parser:
                     self.ir.append(IRNode(line, opcode))
                 
             except Exception:
-                self.pos += 1
+                self.position += 1
 
 # PART C: INTERMEDIATE REPRESENTATION CONSTRUCTION
 class IRNode:
@@ -166,7 +166,7 @@ class IRNode:
 # PART D: COMMAND LINE INTERFACE
 def print_help():
     print("Usage: 411fe [flags] <filename>")
-    print(" -h : Show this help message")
+    print(" -h : Shows this help message")
     print(" -s : Scan and print tokens")
     print(" -p : Scan, Parse, and report errors (Default)")
     print(" -r : Scan, Parse, and print IR")
