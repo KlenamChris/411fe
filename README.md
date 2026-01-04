@@ -28,7 +28,7 @@ For Windows:
 python 411fe.py -[flags] <filename>
 ```
 
-### Command Line Flags
+## Command Line Flags
 The progam supports the following modes:
 
 * `-h` : This displays the help message and list of valid arguments.
@@ -41,7 +41,7 @@ The progam supports the following modes:
 * **Parser**: Validates opcode signatures and operand formats line-by-line.
 * **IR**: Constructs a list of instruction objects containing opcode, line number, and parsed operands.
 
-### Supported ILOC Subset
+## Supported ILOC Subset
 * **Opcodes**: `load`, `loadI`, `store`, `add`, `sub`, `mult`, `lshift`, `rshift`, `output`, `nop` 
 * **Comments**: Lines starting with `//`
 * **Operands**: Registers (`r` + non-negative int), Constants (non-negative int).
