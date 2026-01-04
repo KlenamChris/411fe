@@ -17,6 +17,14 @@ To ensure it has execution permissions, run:
 ```shell
 chmod +x 411fe
 ```
+To run the program in `411fe.py` file:
+```shell
+For Mac/Linux users:
+python3 411fe.py -[flags] <filename>
+
+For Windows:
+python 411fe.py -[flags] <filename>
+```
 
 ### Command Line Flags
 The progam supports the following modes:
