@@ -10,6 +10,7 @@
 8. OSEI PHILLIP - 2425430016
 9. PRINCE OFORI - 1727338141
 10. PRINCE TETTEH - 1725385412
+11. ERNEST TSEKUMAH - 1725044269
 
 ## How to Run 
 For Linux Distributions, the progam is wrapped in a shell script named `411fe`. 
