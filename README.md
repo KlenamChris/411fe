@@ -18,11 +18,13 @@ To ensure it has execution permissions, run:
 chmod +x 411fe
 ```
 To run the program in `411fe.py` file:
-```shell
 For Mac/Linux users:
+```shell
 python3 411fe.py -[flags] <filename>
+```
 
 For Windows:
+```shell
 python 411fe.py -[flags] <filename>
 ```
 
